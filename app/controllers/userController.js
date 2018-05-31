@@ -13,6 +13,7 @@ export default {
     store(req, res) {
         let user = new User(req.body)
         user.save((err, result) => {
+            if (err) res.send(err)
             res.send(result)
         })
     }
