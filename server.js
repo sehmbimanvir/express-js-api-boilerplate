@@ -1,37 +1,39 @@
-/**
- * Import Modules
- */
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
-import mung from 'express-mung'
- 
-/**
- * Import Configuration Files
- */
-import settings from './app/config/settings'
-import routes from './app/routes/index'
+import cors from 'cors'
+import routes from './routes/index'
+import Settings from './config'
+import { responseHelper, clientErrors } from './middleware/response.middleware'
 
-/**
- * Set Application Configuration
- */
-const app = express()
+/** Connect With MongoDB */
+mongoose.connect(`${Settings.mongo.url}/${Settings.mongo.db}`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
+
+/** Initialize Express App */
+const app = express();
+
+/** Apply CORS Middleware */
+app.use(cors())
+
+/** Apply BodyParser Middleware */
 app.use(bodyParser.json())
-app.use(mung.json(
-    function transform(body, req, res) {
-        body.mungMessage = "I intercepted you!";
-        return body;
-    }
-))
-app.use('/api', routes)
-  
-/**
- * Make Connection to Server
- */
-mongoose.connect(settings.DB_URI, (err, database) => {
-    if (err) return console.log(err)
 
-    app.listen(settings.PORT, () => {
-        console.log(`App is Running on Port ${settings.PORT}`)
-    })
+/** Response Helpers */
+app.use(responseHelper)
+
+/** Initialize API Routes */
+app.use('/api', routes)
+
+/** Handle Errors */
+app.use(clientErrors)
+
+/**
+ *  Server Configuration
+*/
+app.listen(Settings.port, () => {
+  console.log(`App is Running on Port: ${Settings.port}`)
 })
