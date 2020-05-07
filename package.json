@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha -w --require @babel/register",
     "dev": "nodemon --exec babel-node server.js"
   },
   "author": "Manvir Singh",
@@ -26,9 +25,6 @@
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
-    "@babel/register": "^7.9.0",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^7.1.2"
+    "@babel/register": "^7.9.0"
   }
 }
