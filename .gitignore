@@ -1,6 +1,4 @@
 /node_modules
-/xml-files/*
-!xml-files/.gitkeep 
 /.idea
 /.vscode
 .env
@@ -8,3 +6,5 @@
 package-lock.json
 server.cert
 server.key
+/test
+.babelrc

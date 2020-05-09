@@ -21,10 +21,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body
   const user = await UserModel.findOne({ email })
-  if (bcrypt.compareSync(password, user.password)) {
-    return res.sendJSON('User Logged in Successfully', generteAuthPayload(user))
+  if (!user || !bcrypt.compareSync(password, user.password)) {
+    return res.sendJSON('Invalid Credentials', {}, 401)
   }
-  res.sendJSON('Invalid Credentials', {}, 401)
+  return res.sendJSON('User Logged in Successfully', generteAuthPayload(user))
 }
 
 /**
