@@ -5,6 +5,9 @@ import { sendPasswordResetLink } from '../events/sendPasswordResetLink'
 import jwt from 'jsonwebtoken'
 import Settings from '../config'
 
+/**
+ * Register New User
+ */
 export const register = async (req, res) => {
   const { name, email, password } = req.body
   const user = new UserModel({ name, email, password })
@@ -12,15 +15,21 @@ export const register = async (req, res) => {
   res.sendJSON('User Registered Successfully')
 }
 
+/**
+ * Authenticate User
+ */
 export const login = async (req, res) => {
   const { email, password } = req.body
   const user = await UserModel.findOne({ email })
-  if (bcrypt.compareSync(password, user.password)) {
-    return res.sendJSON('User Logged in Successfully', generteAuthPayload(user))
+  if (!user || !bcrypt.compareSync(password, user.password)) {
+    return res.sendJSON('Invalid Credentials', {}, 401)
   }
-  res.sendJSON('Invalid Credentials', {}, 401)
+  return res.sendJSON('User Logged in Successfully', generteAuthPayload(user))
 }
 
+/**
+ * Forgot Password
+ */
 export const forgot = async (req, res) => {
   const { email } = req.body
 
@@ -34,6 +43,9 @@ export const forgot = async (req, res) => {
   return res.sendJSON('Password reset email sent successfully')
 }
 
+/**
+ * Reset Password
+ */
 export const reset = async (req, res) => {
   const resetToken = req.params.token
 

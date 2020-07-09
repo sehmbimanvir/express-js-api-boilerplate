@@ -25,7 +25,7 @@ export const authValidations = {
   },
   register: {
     name: 'required',
-    email: 'required|email',
+    email: 'required|email|unique:User,email',
     password: 'required|min:6|confirmed'
   },
   forgot: {

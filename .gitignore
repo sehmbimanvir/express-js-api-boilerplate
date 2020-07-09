@@ -1,10 +1,11 @@
 /node_modules
-/xml-files/*
-!xml-files/.gitkeep 
 /.idea
 /.vscode
+/build
 .env
 .env.production
 package-lock.json
 server.cert
 server.key
+/test
+.babelrc
