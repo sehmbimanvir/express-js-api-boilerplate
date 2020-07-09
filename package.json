@@ -1,10 +1,12 @@
 {
-  "name": "practice",
+  "name": "express-js-api-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "An API boilerplate for NodeJS using Express Framework",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node server.js"
+    "build": "babel -d ./build ./src",
+    "dev": "nodemon --exec babel-node src/server.js",
+    "start": "node ./build/server.js"
   },
   "author": "Manvir Singh",
   "license": "ISC",
@@ -24,7 +26,6 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/register": "^7.9.0"
+    "@babel/preset-env": "^7.9.6"
   }
 }

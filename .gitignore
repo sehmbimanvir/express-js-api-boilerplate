@@ -1,6 +1,7 @@
 /node_modules
 /.idea
 /.vscode
+/build
 .env
 .env.production
 package-lock.json
